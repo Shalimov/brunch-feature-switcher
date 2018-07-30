@@ -1,5 +1,5 @@
 const fp = require('lodash/fp')
-const resolver = require('code-resolver')
+const resolver = require('./code-resolver')
 
 class FeatureSwitcherPlugin {
   constructor(config) {

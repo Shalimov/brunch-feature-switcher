@@ -51,7 +51,7 @@ module.exports = function (code, options) {
   }
 
   const esParse = opts.type === 'module' ? 'parseModule' : 'parseScript'
-  const ast = esprima[esParse](script, { comment: true, loc: true })
+  const ast = esprima[esParse](code, { comment: true, loc: true })
   const detect = featureDetector(opts.features, ast.comments)
 
   const modifiedAst = estra.replace(ast, {
