@@ -18,8 +18,8 @@ class FeatureSwitcherPlugin {
   // Transforms a file data to different data. Could change the source map etc.
   // Examples: JSX, CoffeeScript, Handlebars, SASS.
   compile(file) {
-    const cleanCode = resolver(file.data)
-    return Promise.resolve(cleanCode, { features: this.features })
+    const cleanCode = resolver(file.data, { features: this.features })
+    return Promise.resolve(Object.assign(file, { data: cleanCode }))
   }
 }
 
