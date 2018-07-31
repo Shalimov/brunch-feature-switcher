@@ -3,15 +3,30 @@ const estra = require('estraverse')
 const esc = require('escodegen')
 const fp = require('lodash/fp')
 
-const { Syntax } = esprima
 const MARKER = '@feature'
 
+const matcher = /([a-zA-Z0-9_:]+)/g
+const parseFeature = (feature) => {
+  if (feature.includes(':')) {
+    const [featureName, opt] = feature.split(':')
+
+    return {
+      feature: featureName,
+      reversed: opt === 'false'
+    }
+  }
+
+  return {
+    feature,
+    reversed: false
+  }
+}
 const commentParser = fp.flow(
   fp.filter(fp.flow(fp.prop('value'), fp.trim, fp.startsWith('@feature'))),
   fp.flatMap((v) => {
-    const words = fp.flow(fp.replace(MARKER, ''), fp.words)
+    const words = fp.flow(fp.replace(MARKER, ''), fp.invokeArgs('match', [matcher]))
     return fp.map((feature) => ({
-      feature,
+      ...parseFeature(feature),
       loc: v.loc,
     }), words(v.value))
   })
@@ -20,7 +35,12 @@ const commentParser = fp.flow(
 const featureDetector = (featuresSwitchedOn, comments) => {
   const featuresSet = new Set(featuresSwitchedOn)
   const parsedComments = commentParser(comments)
-  const unavailableFeatures = parsedComments.filter(v => !featuresSet.has(v.feature))
+  const unavailableFeatures = parsedComments.filter(
+    v => (
+      v.reversed ?
+        featuresSet.has(v.feature) :
+        !featuresSet.has(v.feature))
+  )
 
   return (codeLoc) => fp.some(
     f => (
@@ -30,24 +50,6 @@ const featureDetector = (featuresSwitchedOn, comments) => {
     unavailableFeatures
   )
 }
-
-const isExpectedType = fp.includes(fp.placeholder, [
-  Syntax.Property,
-  Syntax.FunctionDeclaration,
-  Syntax.FunctionExpression,
-  Syntax.VariableDeclaration,
-  Syntax.ReturnStatement,
-  Syntax.CallExpression,
-  Syntax.MethodDefinition,
-  Syntax.ClassDeclaration,
-  Syntax.ImportDeclaration,
-  Syntax.ImportSpecifier,
-  Syntax.ExportAllDeclaration,
-  Syntax.ExportDefaultDeclaration,
-  Syntax.ExportNamedDeclaration,
-  Syntax.Literal,
-  Syntax.Identifier,
-])
 
 module.exports = function (code, options) {
   const opts = Object.assign({
@@ -60,12 +62,12 @@ module.exports = function (code, options) {
   }
 
   const esParse = opts.type === 'module' ? 'parseModule' : 'parseScript'
-  const ast = esprima[esParse](code, { comment: true, loc: true })
+  const ast = esprima[esParse](code, { comment: true, loc: true, range: true })
   const detect = featureDetector(opts.features, ast.comments)
 
   const modifiedAst = estra.replace(ast, {
     enter(node) {
-      if (detect(node.loc) && isExpectedType(node.type)) {
+      if (node && detect(node.loc)) {
         this.remove()
       }
     }
