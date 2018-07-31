@@ -3,6 +3,7 @@ const estra = require('estraverse')
 const esc = require('escodegen')
 const fp = require('lodash/fp')
 
+const { Syntax } = esprima.Syntax
 const MARKER = '@feature'
 
 const commentParser = fp.flow(
@@ -31,13 +32,19 @@ const featureDetector = (featuresSwitchedOn, comments) => {
 }
 
 const isExpectedType = fp.includes(fp.placeholder, [
-  esprima.Syntax.Property,
-  esprima.Syntax.FunctionDeclaration,
-  esprima.Syntax.FunctionExpression,
-  esprima.Syntax.VariableDeclaration,
-  esprima.Syntax.ReturnStatement,
-  esprima.Syntax.MethodDefinition,
-  esprima.Syntax.ClassDeclaration,
+  Syntax.Property,
+  Syntax.FunctionDeclaration,
+  Syntax.FunctionExpression,
+  Syntax.VariableDeclaration,
+  Syntax.ReturnStatement,
+  Syntax.MethodDefinition,
+  Syntax.ClassDeclaration,
+  Syntax.ImportDeclaration,
+  Syntax.ExportAllDeclaration,
+  Syntax.ExportDefaultDeclaration,
+  Syntax.ExportNamedDeclaration,
+  Syntax.Literal,
+  Syntax.Identifier,
 ])
 
 module.exports = function (code, options) {
