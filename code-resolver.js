@@ -3,7 +3,7 @@ const estra = require('estraverse')
 const esc = require('escodegen')
 const fp = require('lodash/fp')
 
-const { Syntax } = esprima.Syntax
+const { Syntax } = esprima
 const MARKER = '@feature'
 
 const commentParser = fp.flow(
@@ -40,6 +40,7 @@ const isExpectedType = fp.includes(fp.placeholder, [
   Syntax.MethodDefinition,
   Syntax.ClassDeclaration,
   Syntax.ImportDeclaration,
+  Syntax.ImportSpecifier,
   Syntax.ExportAllDeclaration,
   Syntax.ExportDefaultDeclaration,
   Syntax.ExportNamedDeclaration,
