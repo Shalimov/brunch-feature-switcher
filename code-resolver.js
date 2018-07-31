@@ -37,6 +37,7 @@ const isExpectedType = fp.includes(fp.placeholder, [
   Syntax.FunctionExpression,
   Syntax.VariableDeclaration,
   Syntax.ReturnStatement,
+  Syntax.CallExpression,
   Syntax.MethodDefinition,
   Syntax.ClassDeclaration,
   Syntax.ImportDeclaration,
