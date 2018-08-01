@@ -6,7 +6,7 @@ class FeatureSwitcherPlugin {
     // Replace 'plugin' with your plugin's name.
     // Don't include 'brunch' or 'plugin' words in configuration key.
     this.config = config.plugins.featureSwitcher || {}
-    this.features = config.features
+    this.features = this.config.features
   }
 
   // file: File => Promise[File]
