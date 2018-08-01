@@ -6,12 +6,7 @@ class FeatureSwitcherPlugin {
     // Replace 'plugin' with your plugin's name.
     // Don't include 'brunch' or 'plugin' words in configuration key.
     this.config = config.plugins.featureSwitcher || {}
-    this.features = fp.flow(
-      fp.prop('features'),
-      fp.entries,
-      fp.filter(fp.nth(1)),
-      fp.map(fp.first)
-    )(this.config)
+    this.features = config.features
   }
 
   // file: File => Promise[File]
