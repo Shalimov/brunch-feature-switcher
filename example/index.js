@@ -10,10 +10,10 @@ console.log(
     import abc2 from './abc'
 
 
-    /* @feature billing:off:inl_replace:{const d = [1, 2, 3]} */
+    /* @feature billing:off:inl_replace:/const d = [1, 2, 3]/ */
     const ab = [1, 2, 3]
 
-    /* @feature billing:off:inl_replace:{const d = []} */
+    /* @feature billing:off:inl_replace:/const d = []/ */
     const ab = [1, 2, 3]
 
     /* @feature billing:off:remove */

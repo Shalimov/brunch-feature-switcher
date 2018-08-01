@@ -30,10 +30,8 @@ class FeatureController {
   
         feature += symb
   
-        if (symb === '{') {
-          insideExpr = true
-        } else if (symb === '}') {
-          insideExpr = false
+        if (symb === '/') {
+          insideExpr = !insideExpr
         }
       }
       
