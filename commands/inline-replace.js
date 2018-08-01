@@ -1,4 +1,6 @@
+const fp = require('lodash/fp')
 const espirma = require('esprima')
+
 const Command = require('./base')
 
 class InlineReplaceCommand extends Command {
@@ -8,7 +10,7 @@ class InlineReplaceCommand extends Command {
     // remove brackets
     this.codeline = codeline.substr(1, codeline.length - 2)
     this.placeholder = `__reinline${this.id}__`
-    this.placeholderAST = espirma.parseScript(`'${this.placeholder}'`)
+    this.placeholderAST = fp.head(espirma.parseScript(`'${this.placeholder}'`).body)
   }
 
   static getId() {
@@ -18,7 +20,7 @@ class InlineReplaceCommand extends Command {
   static create(args) {
     return new InlineReplaceCommand(args)
   }
-  
+
   execute() {
     return this.placeholderAST
   }
