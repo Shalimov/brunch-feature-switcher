@@ -28,13 +28,15 @@ class Feature {
   }
 
   isNodeRelated(node) {
-    const nline = fp.get('loc.start.line', node)
     const ncolumn = fp.get('loc.start.column', node)
-
-    const fline = fp.get('start.line', this.location)
     const fcolumn = fp.get('start.column', this.location)
+    
+    if (ncolumn !== fcolumn) return false
 
-    return ((fline - nline + 1) + (fcolumn - ncolumn)) === 0
+    const nline = fp.get('loc.start.line', node)
+    const fline = fp.get('start.line', this.location)
+
+    return (fline + 1) === nline
   }
 
   execute() {
