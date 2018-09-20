@@ -1,12 +1,12 @@
-const fp = require('lodash/fp')
 const resolver = require('./code-resolver')
 
 class FeatureSwitcherPlugin {
   constructor(config) {
     // Replace 'plugin' with your plugin's name.
     // Don't include 'brunch' or 'plugin' words in configuration key.
-    this.config = config.plugins.featureSwitcher || {}
+    this.config = Object.assign({}, config.plugins.featureSwitcher)
     this.features = this.config.features
+    this.options = Object.assign({ commands: {} }, this.config.options)
   }
 
   // file: File => Promise[File]
