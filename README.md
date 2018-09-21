@@ -1,5 +1,10 @@
 # Plugin that hepls to add/remove/replace code based on included features
 
+__How to install:__
+- `yarn install brunch-feature-switcher`
+- `npm i brunch-feature-switcher`
+
+---
 __Example:__
 ```javascript
 // #brunch-config.js
