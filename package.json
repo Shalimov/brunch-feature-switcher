@@ -8,5 +8,25 @@
     "esprima": "^4.0.1",
     "estraverse": "^4.2.0",
     "lodash": "^4.17.10"
-  }
+  },
+  "author": {
+    "name": "Igor Shalimov",
+    "email": "work.igor.shalimov@gmail.com",
+    "url": "https://github.com/Shalimov"
+  },
+  "keywords": [
+    "brunch",
+    "plugin",
+    "feature",
+    "switcher",
+    "feature switcher",
+    "code replacer",
+    "conditional",
+    "conditional code replacer",
+    "replace",
+    "replacer",
+    "esprima",
+    "remove",
+    "case"
+  ]
 }
