@@ -2,6 +2,8 @@
   "name": "brunch-feature-switcher",
   "version": "1.0.0",
   "main": "./index.js",
+  "sideEffects": false,
+  "repository": "https://github.com/Shalimov/brunch-feature-switcher",
   "devDependencies": {},
   "dependencies": {
     "escodegen": "^1.11.0",
@@ -28,5 +30,6 @@
     "esprima",
     "remove",
     "case"
-  ]
+  ],
+  "license": "MIT"
 }
