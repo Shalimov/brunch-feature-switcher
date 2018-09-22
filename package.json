@@ -1,6 +1,6 @@
 {
   "name": "brunch-feature-switcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "sideEffects": false,
   "repository": "https://github.com/Shalimov/brunch-feature-switcher",
