@@ -169,6 +169,12 @@ const dropdownItems = [
 const a = [1]
 ```
 
+NB!: If you set a few features in row it will work as logical __and__, also be careful: if one of the actions should replace something it should be listed as last:
+```javascript
+/* @feature n1:off:remove, n2:off:inl_replace:/[1, 2, 3]/ */
+```
+
+
 NB!: If pay your attention to inl_replace action you will see that arg is surrouneded by `/`, it made on purpose of escaping. (cuz spaces and commas tells parser to handle new feature, but we want to avoid that in case of args)
 
 ---
